@@ -1,0 +1,42 @@
+@inproceedings{patrickradiha:one,
+author = {Cousot, Patrick and Cousot, Radhia},
+title = {Abstract Interpretation: A Unified Lattice Model for Static Analysis of Programs by Construction or Approximation of Fixpoints},
+year = {1977},
+isbn = {9781450373500},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/512950.512973},
+doi = {10.1145/512950.512973},
+abstract = {A program denotes computations in some universe of objects. Abstract interpretation of programs consists in using that denotation to describe computations in another universe of abstract objects, so that the results of abstract execution give some information on the actual computations. An intuitive example (which we borrow from Sintzoff [72]) is the rule of signs. The text -1515 * 17 may be understood to denote computations on the abstract universe {(+), (-), (±)} where the semantics of arithmetic operators is defined by the rule of signs. The abstract execution -1515 * 17 → -(+) * (+) → (-) * (+) → (-), proves that -1515 * 17 is a negative number. Abstract interpretation is concerned by a particular underlying structure of the usual universe of computations (the sign, in our example). It gives a summary of some facets of the actual executions of a program. In general this summary is simple to obtain but inaccurate (e.g. -1515 + 17 → -(+) + (+) → (-) + (+) → (±)). Despite its fundamentally incomplete results abstract interpretation allows the programmer or the compiler to answer questions which do not need full knowledge of program executions or which tolerate an imprecise answer, (e.g. partial correctness proofs of programs ignoring the termination problems, type checking, program optimizations which are not carried in the absence of certainty about their feasibility, …).},
+booktitle = {Proceedings of the 4th ACM SIGACT-SIGPLAN Symposium on Principles of Programming Languages},
+pages = {238–252},
+numpages = {15},
+location = {Los Angeles, California},
+series = {POPL '77}
+}
+
+@book{cutland1980computability,
+  title={Computability: An introduction to recursive function theory},
+  author={Cutland, Nigel},
+  year={1980},
+  publisher={Cambridge university press}
+}
+
+@article{kozen1997kleene,
+author = {Kozen, Dexter},
+title = {Kleene Algebra with Tests},
+year = {1997},
+issue_date = {May 1997},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {19},
+number = {3},
+issn = {0164-0925},
+url = {https://doi.org/10.1145/256167.256195},
+doi = {10.1145/256167.256195},
+abstract = {We introduce Kleene algebra with tests, an equational system for manipulating programs. We give a purely equational proof, using Kleene algebra with tests and commutativity conditions, of the following classical result: every while program can be simulated by a while program can be simulated by a while program with at most one while loop. The proof illustrates the use of Kleene algebra with tests and commutativity conditions in program equivalence proofs.},
+journal = {ACM Trans. Program. Lang. Syst.},
+month = {may},
+pages = {427–443},
+numpages = {17},
+keywords = {dynamic logic, Kleene algebra, specification}}

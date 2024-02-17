@@ -1,0 +1,23 @@
+\section{The Imp language}\label{sec:lang}
+
+In order to talk about program properties we need a language to
+express such programs. We define the \(\imp\) language, made of
+regular commands and based on Kozen’s Kleene algebra with tests,
+described in~\cite{kozen1997kleene}.  We denote by \(\z\) the set of
+naturals with the usual order, extended with the least and greatest
+elements \(-\infty\) and \(+\infty\), s.t.
+\(-\infty \leq z \leq +\infty\) for all \(z \in \z\). We also extend
+addition and subtraction by letting, for all \(z \in \z\) it holds
+that \(+\infty + z = + \infty - z = + \infty\) and
+\(-\infty + z = -\infty + z = -\infty\).  We focus on the following
+non-deterministic language.
+\begin{align*}
+  \expr \ni \com[e] ::= & \; \var \in S  \mid \var := k \mid \var := \var[y] + k \\
+  \imp\starless \ni \com[D] ::= & \; \com[e] \mid \com[D + D] \mid \com[D ; D] \\
+  \imp \ni \com ::= & \; \com[D] \mid \com + \com \mid \com ; \com \mid \com^* \mid \fix{\com}
+\end{align*}
+where \(\var, \var[y] \in \Var\) a finite set of variables of
+interest, i.e., the variables appearing in the considered program,
+\(S\subseteq \z\) is (possibly empty) \emph{decidable} set of numbers,
+\({a \in \z \cup \{-\infty\}}, {b \in \z \cup\{+\infty\}}, {a\leq b}\)
+and \({k \in \z}\) is any finite integer constant.

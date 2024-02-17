@@ -1,0 +1,163 @@
+\section{Semantics}\label{sec:semantics}
+
+In order to talk about program properties in our language, we first
+need to define its \emph{semantics}. In the following section we
+introduce both a collecting semantics in order to reason about program
+\emph{invariants} and a small step semantics, in order to reason about
+program \emph{execution}
+
+\begin{definition}[Semantics of Basic Expressions]
+  Let \emph{environments} be the maps from the set of variables to
+  their numerical value:
+  \(\env \defin \{\rho \mid \rho : \Var \to \n\}\). For basic
+  expressions \(e \in \expr\) the \emph{concrete semantics}
+  \(\bsem{ \cdot} : \expr \to \env \to \smashed{\env}\) is
+  inductively defined by:
+  % align* to horizontally align multiple equations
+  \begin{align*}
+    \bsem{\var\in S} \rho & \defin \begin{cases} \rho & \rho(\var)\in S \\ \bot & \text{otherwise} \end{cases} \\
+    \bsem{\var:= k} \rho & \defin \rho [\var\mapsto k] \\
+    \bsem{\var:= \var[y] + k} \rho & \defin \begin{cases} \rho [\var\mapsto \rho(\var[y]) + k] & \rho \neq \bot \\ \bot & \text{otherwise}\end{cases} \\
+    \bsem{\var:= \var[y] - k} \rho & \defin \begin{cases} \rho [\var\mapsto \rho(\var[y]) - k] & \rho \neq \bot \\ \bot & \text{otherwise}\end{cases} \\
+  \end{align*}
+  where with \(\smashed{\env}\) we mean \(\env \cup \{\bot\}\).
+\end{definition}
+
+The next building block is the concrete collecting semantics for the
+language, it associates each program in \(\imp\) to a function which,
+given a set of initial environments \(X\) ``collects'' the set of
+final states produced by executing the program from \(X\).
+
+\begin{definition}[Concrete collecting semantics]\label{de:concretesem}
+  Let \(\dom \defin \langle \poset{\env} , \subseteq \rangle\) be a
+  complete lattice called \emph{concrete collecting domain}. The
+  \emph{concrete collecting semantics} for \(\imp\) is given by the
+  total function \(\sem{\cdot} : \imp \to \dom \to \dom\) which maps
+  each program \(\com \in \imp\) to a total function over the complete
+  lattice \(\dom\), inductively defined as follows: given
+  \(X \in \dom\)
+
+  \begin{align*}
+    \sem{\com[e]} X & \defin \{\bsem{\com[e]} \rho \mid \rho \in X,
+                      \bsem{\com[e]} \rho \neq \bot\} \\
+    \sem{\com[C_1] + \com[C_2]} X & \defin \sem{\com[C_1]} X \cup \sem{\com[C_2]} X \\
+    \sem{\com[C_1] ; \com[C_2]} X & \defin \sem{\com[C_2]}(\sem{\com[C_1]} X) \\
+    \sem{\com[C^*]} X & \defin \bigcup_{i \in \n} \sem{\com[C]}^i X \\
+    \sem{\fix{C}} X & \defin \lfp(\lambda Y \in\poset{\env} . (X \cup \sem{\com}Y))
+  \end{align*}
+\end{definition}
+
+We observe that the semantics we described is additive:
+
+\begin{observation}[Semantics Additivity]
+  Given \(\com\in\imp\), \(X,Y \in \dom\),
+  \[\sem{\com}(X\cup Y) = \sem{\com}X \cup \sem{\com}Y\]
+\end{observation}
+
+\begin{proof}
+  \dots
+\end{proof}
+
+% Subsections in this case are directly in the section file, but you
+% can also make a folder for the section and \subimport the
+% subsections, it's up to you
+
+\subsection{Syntactic sugar}\label{sub:sugar}
+We define some syntactic sugar for the language. In the next chapters
+we will often use the syntactic sugar instead of its real equivalent
+for the sake of simplicity.
+% 
+% The Todo package allows for annotations directly rendered in the pdf
+\todo[inline]{Add more syntactic sugar for the examples}
+%
+\begin{align*}
+  \var \in \interval{a}{b} & = \var \in S & \text{with } S = \interval{a}{b}, \text{ decidable}\\
+  \var \leq k & = \var \in (-\infty, k]\\
+  \var > k & = \var \in [k+1, + \infty) \\
+  \tru & = \var \in \n \\
+  \ff & = \var \in \emptyset \\
+  \var \in S_1 \vee \var \in S_2 & = (\var \in S_1) + (\var \in S_2) \\ 
+  \var \in S_1 \wedge \var \in S_2 & = (\var \in S_1);(\var \in S_2) \\
+  \var \not\in S & = \var \in \neg S \\
+  \ifte{b}{C_1}{C_2} & = (\com[e];\com_1) + (\com[\neg e];\com_2) \\
+  \while{b}{C} & = \fix{\com[e];\com};\neg\com[e] \\
+  \pplus{\var} & = \var := \var + 1
+\end{align*}
+
+\subsection{Small step semantics}\label{sub:sos}
+
+Now that we have defined the collecting semantics to express program
+properties, we need the small step semantics to talk about program
+execution. We start by defining \emph{program states}:
+\(\state \defin \imp \times \env\) tuples of programs and program
+environments.  With states we can define our small step semantics:
+
+% \infer for logical inferences and sequent calculus
+
+\begin{definition}[Small step semantics]\label{def:sosem}
+  The small step transition relation for the language \(\imp\)
+  \(\to : \state \times (\state \cup \env)\) is defined by the
+  following rules:
+  \begin{equation*}
+    \infer[\text{expr}]
+          {\stt{\com[e], \rho} \to \bsem{e}\rho}
+          {\bsem{e}\rho \neq \bot}
+  \end{equation*}
+  
+  \begin{equation*}
+    \infer[\text{sum}_1]
+    {\stt{\com[C_1 + C_2], \rho} \to \stt{\com[C_1], \rho}}
+    {} \quad
+    \infer[\text{sum}_2]
+          {\stt{\com[C_1 + C_2], \rho} \to \stt{\com[C_2], \rho}}
+          {}
+  \end{equation*}
+  
+  \begin{equation*}
+    \infer[\text{comp}_1]
+          {\stt{\com[C_1; C_2], \rho} \to \stt{\com[C_1'; C_2], \rho'}}
+          {\stt{\com[C_1], \rho} \to \stt{\com[C_1'], \rho'}} \quad
+    \infer[\text{comp}_2]
+          {\stt{\com[C_1; C_2], \rho} \to \stt{\com[C_2], \rho'}}
+          {\stt{\com[C_1], \rho} \to \rho' }
+  \end{equation*}
+
+  \begin{equation*}
+    \infer[\text{star}]
+          {\stt{\com[C^*], \rho} \to \stt{\com[C;C^*], \rho}}
+          {} \quad
+    \infer[\text{star}_{\text{fix}}]
+          {\stt{\com[C^*], \rho} \to \rho}
+          {}
+  \end{equation*}
+\end{definition}
+
+\noindent
+In the following chapters we will usually use the following notation
+to talk about program execution:
+
+\begin{itemize}
+\item \(\to^+\) is the transitive closure of the relation \(\to\);
+\item \(\to^*\) is the reflexive and transitive closure of the
+  relation \(\to\).
+\end{itemize}
+\noindent
+
+With the following lemma we introduce a link between the small step
+semantics and the concrete collecting semantics: the invariant of a
+program is the collection of all the environments the program halts on
+when executing.
+
+\begin{lemma}\label{le:link}
+  For any \(\com\in\imp, X \in \poset{\env}\)
+  \begin{equation*}
+    \sem{\com}X = \{\rho' \in \env \mid \rho \in X, \stt{\com, \rho} \to^* \rho'\}
+  \end{equation*}
+\end{lemma}
+
+where \(\to^*\) is the reflexive and transitive closure of the \(\to\)
+relation.
+
+\begin{proof}
+  \dots
+\end{proof}

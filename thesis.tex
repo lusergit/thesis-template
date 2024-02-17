@@ -1,0 +1,33 @@
+\documentclass[
+  10pt,       % fontsize
+  twoside,    % symmetric pagination, for digital view
+  % oneside,  % asymmetric pagination, for a nice printed version
+  a4paper,    % 
+  english,    % 
+  tikz,       % to build images
+  openright,  % start chapters on odd-numbered pages
+]{book}
+
+\usepackage{preamble}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\begin{document}
+
+%% config && title page
+\frontmatter
+\import{./config/}{mod}
+\import{./src/intro/}{mod}
+
+%% TOC
+\cleardoublepage
+\tableofcontents
+
+%% Structure
+\cleardoublepage
+\mainmatter
+\import{./src/chapters/}{mod}
+
+\backmatter
+\import{./src/outro/}{mod}
+\end{document}

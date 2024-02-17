@@ -1,0 +1,12 @@
+aux/
+**/*.synctex.gz
+**/*.old
+**/old/*
+**/discard/*
+punti.org
+**/*\#.*
+**/*.bak
+GTAGS
+GRTAGS
+GPATH
+out/

@@ -1,0 +1,129 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{commands}[2023/03/17 Package providing custom commands for the document]
+
+%% domains and defined sets
+\newcommand{\imp}{\text{Imp}}
+\newcommand{\expr}{\ensuremath{\mathsf{Exp}}}
+\newcommand{\env}{\ensuremath{\mathsf{Env}}}
+\newcommand{\state}{\ensuremath{\mathsf{State}}}
+\newcommand{\Var}{\ensuremath{\mathit{Var}}}
+\newcommand{\Int}{\ensuremath{\mathit{Int}}}
+\newcommand{\inte}{\ensuremath{\mathbb{I}}}
+\newcommand{\dom}{\ensuremath{\mathbb{C}}}
+\newcommand{\starless}{\ensuremath{_{s}}}
+\newcommand{\ifte}[3]{\ensuremath{\mathsf{if} \; #1 \; \mathsf{then} \; #2 \;\mathsf{else} \; #3}}
+\newcommand{\while}[2]{\ensuremath{\mathsf{while} \; #1 \; \mathsf{do} \; #2}}
+\newcommand{\plusplus}{\mathbin{\text{\ttfamily\upshape ++}}}
+\newcommand{\pplus}[1]{\ensuremath{#1 \plusplus}}
+\newcommand{\trans}[2]{\ensuremath{\mathsf{TS}(\la {#1}, {#2} \ra)}}
+\newcommand{\abstract}[1]{\ensuremath{{#1}^\sharp}}
+\newcommand{\varsof}[1]{\ensuremath{\mathit{vars}({#1})}}
+\newcommand{\smashed}[1]{\ensuremath{{#1}_\bot}}
+
+% domains
+\newcommand{\z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\n}{\ensuremath{\mathbb{N}}}
+\newcommand{\bA}{\ensuremath{\mathbb{A}}}
+\newcommand{\bD}{\ensuremath{\mathbb{D}}}
+
+% sintactic sugar
+\newcommand{\tru}{\ensuremath{\mathsf{true}}}
+\newcommand{\ff}{\ensuremath{\mathsf{false}}}
+
+% relation orders
+\newcommand{\llp}{\ensuremath{\llparenthesis}}
+\newcommand{\rrp}{\ensuremath{\rrparenthesis}}
+\newcommand{\llb}{\ensuremath{\llbracket}}
+\newcommand{\rrb}{\ensuremath{\rrbracket}}
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+\newcommand{\bigx}{\ensuremath{\mathcal{X}}}
+\newcommand{\one}{\ensuremath{\mathds{1}}}
+\newcommand{\hto}{\ensuremath{\hookrightarrow}}
+\newcommand{\htor}{\ensuremath{\xhookrightarrow{r}}}
+\newcommand{\tor}{\ensuremath{\xrightarrow{r}}}
+\newcommand{\tto}{\ensuremath{\Rightarrow}}
+
+%% halting
+\newcommand{\ehalts}[1][]{\ensuremath{\downarrow #1}}
+\newcommand{\ahalts}[1][]{\ensuremath{\downdownarrows #1}}
+\newcommand{\nehalts}[1][]{\ensuremath{\uparrow #1}}
+\newcommand{\nahalts}[1][]{\ensuremath{\upuparrows #1}}
+
+%% Language expressions & sos
+\newcommand{\com}[1][C]{\ensuremath{\mathsf{#1}}}
+\newcommand{\var}[1][x]{\ensuremath{\mathsf{#1}}}
+\newcommand{\fix}[1]{\ensuremath{\mathsf{fix}(#1)}}
+\newcommand{\sexp}[1]{\ensuremath{\llp \com{#1} \rrp}}
+\newcommand{\sem}[1]{\ensuremath{\la #1 \ra}}
+\newcommand{\semi}[2][]{\ensuremath{{\llb #2 \rrb^{#1}}}}
+\newcommand{\semnr}[1]{\ensuremath{\lla #1 \rra}}
+\newcommand{\bsem}[1]{\ensuremath{\llp #1 \rrp}}
+\newcommand{\stt}[1]{\ensuremath{\langle #1 \rangle}}
+\newcommand{\envi}[1]{\ensuremath{[ #1 ]}}
+\newcommand{\interval}[2]{\ensuremath{[#1, #2]}}
+\newcommand{\red}[1]{\ensuremath{\mathsf{red}(\mathsf{#1})}}
+\newcommand{\sequence}[1]{\ensuremath{\mathsf{[\; #1 \;]}}}
+\newcommand{\emptyseq}{\ensuremath{\mathsf{[\;]}}}
+\newcommand{\conc}{\ensuremath{\circ}}
+\newcommand{\starfix}{star\(_{\text{fix}}\)}
+
+%% Algebra
+\newcommand{\defin}{\ensuremath{\triangleq}}
+\newcommand{\lubof}[2][]{\ensuremath{\cup_{#1} #2}}
+\newcommand{\glbof}[2][]{\ensuremath{\cap_{#1} #2}}
+\newcommand{\lfp}{\ensuremath{\text{lfp}}}
+\newcommand{\lub}{\ensuremath{\text{lub}}}
+\newcommand{\gfp}{\ensuremath{\text{gfp}}}
+\newcommand{\glb}{\ensuremath{\text{glb}}}
+\newcommand{\poset}[1]{\ensuremath{2^{#1}}}
+\newcommand{\partialrec}[1][]{\ensuremath{\n^{#1} \htor \n}}
+\newcommand{\tuple}[1]{\ensuremath{\la #1 \ra}}
+\newcommand{\sizeof}[1]{\ensuremath{\left| #1 \right|}}
+
+%% Interval analysis
+\newcommand{\concr}[1][]{\ensuremath{\gamma_{#1}}}
+\newcommand{\abstr}[1][]{\ensuremath{\alpha_{#1}}}
+\newcommand{\widen}[1][]{\ensuremath{\nabla}}
+\newcommand{\narrowi}[1][]{\ensuremath{\triangle}}
+\newcommand{\acup}{\ensuremath{\sqcup}}
+\newcommand{\acap}{\ensuremath{\sqcap}}
+\newcommand{\bigacup}{\ensuremath{\bigsqcup}}
+\newcommand{\bigacap}{\ensuremath{\bigsqcap}}
+\newcommand{\const}[1]{\ensuremath{\abstr(#1)}}
+%% old
+\newcommand{\prog}{\ensuremath{\text{Prog}}}
+\newcommand{\trace}{\ensuremath{\text{Trace}}}
+\newcommand{\exec}{\ensuremath{\text{Exe}}}
+\newcommand{\inv}{\ensuremath{\text{Inv}}}
+
+% non relational collecting
+\newcommand{\nrsupseteq}{\ensuremath{\;\dot{\supseteq}\;}}
+\newcommand{\nrsubseteq}{\ensuremath{\;\dot{\subseteq}\;}}
+\newcommand{\nrdom}[1][]{\ensuremath{\mathit{NRel}_{#1}}}
+
+% theorems and styling
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{observation}{Observation}[chapter]
+\newtheorem{assumption}{Assumption}[chapter]
+\newtheorem{notation}{Notation}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+
+\newtheorem*{question*}{Question}
+\newtheorem*{solution*}{Solution}
+
+%% Aliases
+\let\emptyset\varnothing
+\let\phi\varphi
+\let\leq\leqslant
+\let\geq\geqslant
+\let\epsilon\varepsilon
+\let\theta\vartheta

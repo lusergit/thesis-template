@@ -1,0 +1,33 @@
+%!TEX root = ../dissertation.tex
+
+\newcommand{\myName}{Mario Rossi}
+\newcommand{\myTitle}{Thesis Title}
+\newcommand{\myDegree}{Master degree thesis}
+\newcommand{\myUni}{University of Padova}
+\newcommand{\myFaculty}{Master degree in Computer Science}
+\newcommand{\myDepartment}{Department of Mathematics ``Tullio Levi-Civita''}
+\newcommand{\profTitle}{Prof.}
+\newcommand{\myProf}{Prof 1}
+\newcommand{\myCoProf}{Prof 2}
+\newcommand{\myLocation}{Padova}
+\newcommand{\myAA}{2023--2024}
+\newcommand{\myTime}{April}
+
+\title{\myTitle}
+\author{\myName}
+
+% PDF file metadata fields
+% when updating them delete the build directory, otherwise they won't change
+\begin{filecontents*}{\jobname.xmpdata}
+  \Title{Document's title}
+  \Author{Mario Rossi}
+  \Language{en-EN}
+  \Subject{Subject}
+  \Keywords{Keyword1\sep Keyword2\sep More}
+\end{filecontents*}
+
+% IMPORTANT: Update the metadata!! Contains the subject and the
+% keywords
+
+% Author in metadata must be specified again, otherwise it won't
+% compile

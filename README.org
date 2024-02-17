@@ -1,0 +1,24 @@
+#+title: UniPD Computer Science ~ Thesis template
+#+author: Luca Zaninotto
+#+date: 2024-02-17
+* Compilation
+  =pwd= should be the root folder of the project.
+  #+begin_src sh
+    make -k
+  #+end_src
+** Requirements
+   The project in order to compile requires a =latex-full=-like
+   environment with =latexmk= and =make= installed
+** Results
+   Results are available at [[./out/thesis.pdf]]
+** Spellcheck
+   with =aspell= installed you can run a spellcheck of the whole
+   thesis source /file by file/ by running =./spellcheck.sh= on
+   linux/mac.
+** Old files, discarded files
+   You can void git tracking some files by placing them in subfolders
+   of the =src/= folder either named =old= or =discarded=, take a look
+   at [[./.gitignore]] for more info.
+** Emacs
+   =utils.el= contains utility functions to integrate the latex
+   development of the project with emacs.

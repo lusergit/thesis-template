@@ -1,0 +1,146 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}[Preamble to the thesis, package
+requirements and general settings]
+
+% General font and typesetting packages
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{geometry}
+\RequirePackage{tabu}
+\RequirePackage[pdfa,hidelinks]{hyperref}
+\RequirePackage{graphicx}
+\RequirePackage{longtable}
+\RequirePackage{wrapfig}
+\RequirePackage{rotating}
+\RequirePackage[normalem]{ulem}
+\RequirePackage{capt-of}        % Captions on more than floats
+
+%%%%%%% MATH SYMBOLS %%%%%%%
+
+\RequirePackage{proof}          % proof environment
+
+\RequirePackage{stmaryrd}       % St Mary Road symbols for theoretical
+                                % computer science
+
+\RequirePackage{amssymb}        % math symbols
+
+\RequirePackage{amsfonts}       % ams math fonts
+
+\RequirePackage{amsthm}         % theorem environments
+
+\RequirePackage{amsmath}        % ams math symbols
+
+\RequirePackage{mathtools}      % to introduce additional mathematical
+                                % symbols
+
+\RequirePackage{algorithm}      % to treat algorithms as figures
+
+\RequirePackage{algpseudocode}  % to write algorithmic prseudocode
+
+\RequirePackage{dsfont}         % for math specific monospaced fonts
+
+%%%%%%%% UTILITIES  %%%%%%%%
+
+\RequirePackage{multicol}       % Multicolumn environment when needed
+
+\RequirePackage{tikz}           % to build images
+
+\RequirePackage{enumitem}       % for bettere enumerations (with
+                                % custom labels)
+
+\RequirePackage[
+  hyperref,                           % use hyperref in the pdf
+  style=alphabetic,                   % [Na98] style for references
+  backref=true,                       % to introduce backreferences in
+                                      % the bibliography
+]{biblatex}                           % bibliography
+\bibliography{references} % Bibliography is in the `references.bib` file
+
+\RequirePackage{xcolor}               % for colors
+
+\RequirePackage{emptypage}            % to introduce unnumbered but
+                                      % counted empty pages
+
+\RequirePackage[size=tiny]{todonotes} % todo annotations
+
+\RequirePackage{import}         % for import structure, as explained in src/chapters
+
+%%%% DATA AND COMMANDS  %%%%
+
+% \RequirePackage{data}         % Thesis data, if needed
+
+\RequirePackage{commands}       % Thesis custom commands
+
+
+%%%%%%%%%% CONFIG %%%%%%%%%%
+
+\definecolor{unipdred}{RGB}{155,0,20}
+
+\geometry{
+	top=25mm,
+	bottom=40mm,
+	left=30mm,
+	right=30mm
+}
+
+\usetikzlibrary{positioning}
+
+%% TIKZ config for arrow stars
+\usepgflibrary{plotmarks}
+\tikzset{
+    to*/.style={
+        shorten >=.25em,#1-to,
+        to path={-- node[inner sep=0pt,at end,sloped] {${}^*$} (\tikztotarget) \tikztonodes}
+    },
+    to*/.default=
+}
+\makeatletter
+\pgfarrowsdeclare{to*}{to*}
+{
+  \pgfutil@tempdima=-0.84pt%
+  \advance\pgfutil@tempdima by-1.3\pgflinewidth%
+  \pgfutil@tempdimb=0.21pt%
+  \advance\pgfutil@tempdimb by.625\pgflinewidth%
+  \advance\pgfutil@tempdimb by2.5pt%
+  \pgfarrowsleftextend{+\pgfutil@tempdima}
+  \pgfarrowsrightextend{+\pgfutil@tempdimb}
+}
+{
+  \pgfutil@tempdima=0.28pt%
+  \advance\pgfutil@tempdima by.3\pgflinewidth%
+  \pgfsetlinewidth{0.8\pgflinewidth}
+  \pgfsetdash{}{+0pt}
+  \pgfsetroundcap
+  \pgfsetroundjoin
+  \pgfpathmoveto{\pgfqpoint{-3\pgfutil@tempdima}{4\pgfutil@tempdima}}
+  \pgfpathcurveto
+  {\pgfqpoint{-2.75\pgfutil@tempdima}{2.5\pgfutil@tempdima}}
+  {\pgfqpoint{0pt}{0.25\pgfutil@tempdima}}
+  {\pgfqpoint{0.75\pgfutil@tempdima}{0pt}}
+  \pgfpathcurveto
+  {\pgfqpoint{0pt}{-0.25\pgfutil@tempdima}}
+  {\pgfqpoint{-2.75\pgfutil@tempdima}{-2.5\pgfutil@tempdima}}
+  {\pgfqpoint{-3\pgfutil@tempdima}{-4\pgfutil@tempdima}}
+  \pgfusepathqstroke
+  \begingroup
+    \pgftransformxshift{2.5pt}
+    \pgftransformyshift{2pt}
+    \pgftransformscale{.7}
+    \pgfuseplotmark{asterisk}
+  \endgroup
+%  \pgftext[left,y=2pt]{$\scriptstyle *$}
+}
+\makeatother
+
+% double angle parenthesis with \lla and \rra
+\makeatletter
+\newsavebox{\@brx}
+\newcommand{\lla}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\rra}[1][]{\savebox{\@brx}{\(\m@th{#1\rangle}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\makeatother
+
+% PDFa-2b standard, required for the thesis
+\RequirePackage[a-2b,mathxmp]{pdfx}
+%% \linespread{2}
